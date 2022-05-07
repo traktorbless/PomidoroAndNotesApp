@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @ObservedObject var pomidoroApp: PomidoroViewModel
+
     var body: some View {
         TabView {
-            PomidoroView()
+            PomidoroView(pomidoroApp: pomidoroApp)
                 .tabItem {
                     VStack {
                         Image("tomato")
                             .padding(.bottom)
-                        
+
                         Text("Pomidoro")
                             .background(.red)
                             .foregroundColor(.red)
@@ -24,15 +25,8 @@ struct ContentView: View {
                 }
             NotesView()
                 .tabItem {
-                    Label("Notes",systemImage: "note.text")
+                    Label("Notes", systemImage: "note.text")
                 }
         }
-    }
-}
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

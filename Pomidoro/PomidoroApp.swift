@@ -10,10 +10,12 @@ import SwiftUI
 @main
 struct PomidoroApp: App {
     @StateObject private var dataController = DataController()
-    
+
+    let pomidoroApp = PomidoroViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(pomidoroApp: pomidoroApp)
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }

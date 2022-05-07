@@ -9,15 +9,15 @@ import SwiftUI
 
 struct NoteView: View {
     @Environment(\.managedObjectContext) var moc
-    
+
     @ObservedObject var note: Note
-    
+
     @State private var title: String
     @State private var text: String
-    
+
     var body: some View {
         VStack(alignment: .leading) {
-            
+
             Section {
                 TextField("Title", text: $title)
                     .font(.title)
@@ -30,9 +30,9 @@ struct NoteView: View {
 //                    }
             }
             .padding(.horizontal)
-            
+
             Divider()
-            
+
             Section {
                 TextEditor(text: $text)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -43,23 +43,22 @@ struct NoteView: View {
                     }
             }
             .padding(.horizontal)
-            
+
             Spacer()
         }
-        .onChange(of: title) { newValue in
+        .onChange(of: title) { _ in
             note.title = title
             try? moc.save()
         }
-        .onChange(of: text) { newValue in
+        .onChange(of: text) { _ in
             note.text = text
             try? moc.save()
         }
     }
-    
+
     init(note: Note) {
         self.note = note
         title = note.wrappedTitle
         text = note.wrappedText
     }
 }
-

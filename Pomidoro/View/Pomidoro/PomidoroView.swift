@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct PomidoroView: View {
-    @State var addTask = false
     @Environment(\.managedObjectContext) var moc
+    @ObservedObject var pomidoroApp: PomidoroViewModel
     @StateObject private var userSetting = UserSetting()
-    @State private var showCompleteTask = false
-    @StateObject var pomidoroApp = PomidoroViewModel()
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
-                    TaskList(showCompleteTask: showCompleteTask, userSetting: userSetting)
+                    TaskList(showCompleteTask: pomidoroApp.showCompleteTask, userSetting: userSetting)
                         .listStyle(.plain)
                         .toolbar {
                             Button {
-                                addTask = true
+                                pomidoroApp.addTask = true
                             } label: {
                                 Image(systemName: "plus")
                                     .foregroundColor(.tomato)
@@ -39,14 +37,14 @@ struct PomidoroView: View {
                                 }
                             }
                         }
-                        .sheet(isPresented: $addTask) {
-                            AddTaskView()
+                        .sheet(isPresented: $pomidoroApp.addTask) {
+                            AddTaskView(pomidoroAddTask: pomidoroApp)
                         }
-                    
+
                     Button {
-                        showCompleteTask.toggle()
+                        pomidoroApp.showCompleteTask.toggle()
                     } label: {
-                        Text(showCompleteTask ? "Hide complete task" : "Show complete task")
+                        Text(pomidoroApp.showCompleteTask ? "Hide complete task" : "Show complete task")
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundColor(.tomato)
@@ -62,11 +60,5 @@ struct PomidoroView: View {
             }
             .navigationTitle("Pomidoro")
         }
-    }
-}
-
-struct PomidoroView_Previews: PreviewProvider {
-    static var previews: some View {
-        PomidoroView()
     }
 }

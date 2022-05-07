@@ -11,7 +11,7 @@ import Foundation
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "PomidoroAppData")
     init() {
-        container.loadPersistentStores { description, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 print("Core Data failed to load \(error.localizedDescription)")
             }

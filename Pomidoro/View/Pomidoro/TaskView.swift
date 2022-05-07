@@ -20,23 +20,23 @@ struct TaskView: View {
     private var disableSkip: Bool {
         statusOfPomidoro == .pomidoro ? true : false
     }
-    
+
     var body: some View {
         VStack {
             Text(task.wrappedName)
                 .font(.largeTitle)
-            
+
             Spacer()
-            
+
             Text(statusOfPomidoro == .pomidoro ? "Work Time" : "Pause Time")
                 .font(.title)
                 .fontWeight(.bold)
-            
+
             ProgressRing(progress: progress, minute: minute, second: second)
             .onReceive(time) { _ in
                computeTimer()
             }
-            
+
             Button {
                 status = status == .start ? .pause : .start
             } label: {
@@ -49,16 +49,9 @@ struct TaskView: View {
                     .cornerRadius(20)
                     .shadow(radius: 5)
             }
-            
+
             Button {
-                status = .start
-                statusOfPomidoro = .pomidoro
-                minute = userSettings.setting.timeOfPomidoro
-                task.completeNumberOfPomidoro += 1
-                if task.completeNumberOfPomidoro == task.numberOfPomidoro {
-                    task.isComplete = true
-                }
-                try? moc.save()
+                skipPause()
             } label: {
                 Text("Skip")
                     .font(.subheadline)
@@ -70,11 +63,11 @@ struct TaskView: View {
                     .hideView(isHide: disableSkip)
             }
             .disabled(disableSkip)
-            
+
             Spacer()
         }
     }
-    
+
     init(timeOfPomidoro: Int, task: Task) {
         status = .start
         statusOfPomidoro = .pomidoro
@@ -84,18 +77,18 @@ struct TaskView: View {
         progress = 0.0
         time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
-    
-    enum StateOfButton {
+
+    private enum StateOfButton {
         case pause
         case start
     }
 
-    enum StateOfPomidoro {
+    private enum StateOfPomidoro {
         case pomidoro
         case pause
     }
-    
-    func computeTimer() {
+
+    private func computeTimer() {
         if status == .pause {
             if second == 0 {
                 if minute == 0 {
@@ -124,6 +117,15 @@ struct TaskView: View {
             progress = 1.0 - Double(minute * 60 + second) / Double((statusOfPomidoro == .pomidoro ? userSettings.setting.timeOfPomidoro : userSettings.setting.timeOfPause) * 60)
         }
     }
-    
-}
 
+    private func skipPause() {
+        status = .start
+        statusOfPomidoro = .pomidoro
+        minute = userSettings.setting.timeOfPomidoro
+        task.completeNumberOfPomidoro += 1
+        if task.completeNumberOfPomidoro == task.numberOfPomidoro {
+            task.isComplete = true
+        }
+        try? moc.save()
+    }
+}

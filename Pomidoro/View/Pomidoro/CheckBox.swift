@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CheckBox: View {
     @State var isComplete: Bool
-    
+
     var body: some View {
         if isComplete {
             Image(systemName: "checkmark.circle.fill")

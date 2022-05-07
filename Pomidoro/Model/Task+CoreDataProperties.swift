@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Task {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
@@ -21,12 +20,12 @@ extension Task {
     @NSManaged public var numberOfPomidoro: Int32
     @NSManaged public var completeNumberOfPomidoro: Int32
     @NSManaged public var isComplete: Bool
-    
+
     var wrappedName: String {
         name ?? "Unknown"
     }
 }
 
-extension Task : Identifiable {
+extension Task: Identifiable {
 
 }

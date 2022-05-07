@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Note {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Note> {
@@ -22,13 +21,13 @@ extension Note {
     var wrappedTitle: String {
         title ?? "Unknown title"
     }
-    
+
     var wrappedText: String {
         text ?? "Empty"
     }
-    
+
 }
 
-extension Note : Identifiable {
+extension Note: Identifiable {
 
 }

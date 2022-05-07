@@ -9,24 +9,25 @@ import SwiftUI
 
 struct AddTaskView: View {
     @Environment(\.dismiss) var dismiss
-    
+
     @State private var name = ""
     @State private var numberOfPomidoro = 1
-    
+    @ObservedObject var pomidoroAddTask: PomidoroViewModel
+
     @Environment(\.managedObjectContext) var moc
-    
+
     private var disableAddButton: Bool {
         name.isEmpty ? true : false
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section("Name") {
-                        TextField("Name",text: $name)
+                        TextField("Name", text: $name)
                     }
-                    
+
                     Section("Pomidoros") {
                         Picker("Pomidoros", selection: $numberOfPomidoro) {
                             ForEach(1..<6, id: \.self) {
@@ -34,15 +35,9 @@ struct AddTaskView: View {
                             }
                         }
                     }
-                    
+
                     Button {
-                        let task = Task(context: moc)
-                        task.id = UUID()
-                        task.name = name
-                        task.numberOfPomidoro = Int32(numberOfPomidoro)
-                        task.isComplete = false
-                        task.completeNumberOfPomidoro = 0
-                        try? moc.save() // Handle error here
+                        pomidoroAddTask.addTask(name: name, numberOfPomidoro: numberOfPomidoro, moc: moc)
                         dismiss()
                     } label: {
                         HStack {
@@ -56,11 +51,5 @@ struct AddTaskView: View {
             }
             .navigationTitle("New Task")
         }
-    }
-}
-
-struct AddTaskView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddTaskView()
     }
 }

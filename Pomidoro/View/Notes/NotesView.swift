@@ -10,7 +10,7 @@ import SwiftUI
 struct NotesView: View {
     @FetchRequest(sortDescriptors: []) var notes: FetchedResults<Note>
     @Environment(\.managedObjectContext) var moc
-    
+
     var body: some View {
         NavigationView {
             List {
@@ -30,14 +30,14 @@ struct NotesView: View {
             }
         }
     }
-    
+
     func deleteNote(at offsets: IndexSet) {
         for offset in offsets {
             let note = notes[offset]
-            
+
             moc.delete(note)
         }
-        
+
         try? moc.save()
     }
 }

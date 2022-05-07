@@ -15,12 +15,12 @@ class UserSetting: ObservableObject {
             }
         }
     }
-    
+
     init() {
         if let saveData = UserDefaults.standard.data(forKey: "Setting") {
             if let decoder = try? JSONDecoder().decode(Setting.self, from: saveData) {
                 setting = decoder
-                return 
+                return
             }
         }
         setting = Setting(timeOfPomidoro: 25, timeOfPause: 5)
