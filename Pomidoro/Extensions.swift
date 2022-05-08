@@ -21,6 +21,28 @@ struct HideView: ViewModifier {
     }
 }
 
+struct RoundedRectangleBorder: ViewModifier {
+    var style: Color
+    var cornerRadius: Double
+    var lineWidth: Double
+
+    func body(content: Content) -> some View {
+        content
+            .padding(.horizontal)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+            .overlay {
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .strokeBorder(style, lineWidth: lineWidth)
+            }
+    }
+}
+
+extension View {
+    func roundedRectangleBorder(style: Color, cornerRadius: Double, lineWidth: Double) -> some View {
+        modifier(RoundedRectangleBorder(style: style, cornerRadius: cornerRadius, lineWidth: lineWidth))
+    }
+}
+
 extension View {
     func hideView(isHide: Bool) -> some View {
         modifier(HideView(isHide: isHide))

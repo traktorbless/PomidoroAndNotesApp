@@ -38,12 +38,7 @@ struct TaskRow: View {
                     EmptyView()
                 }
             }
-            .padding(.horizontal)
-            .clipShape(RoundedRectangle(cornerRadius: GeometryValue.cornerRadius))
-            .overlay {
-                RoundedRectangle(cornerRadius: GeometryValue.cornerRadius)
-                    .strokeBorder(.tomato, lineWidth: GeometryValue.lineWidth)
-            }
+            .roundedRectangleBorder(style: .tomato, cornerRadius: GeometryValue.cornerRadius, lineWidth: GeometryValue.lineWidth)
         }
 
     struct GeometryValue {

@@ -11,8 +11,10 @@ struct TaskList: View {
     @FetchRequest var tasks: FetchedResults<Task>
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var userSetting: UserSetting
+    @ObservedObject var pomidoroApp: PomidoroViewModel
 
     var body: some View {
+        if !tasks.isEmpty {
             List {
                 ForEach(tasks) { task in
                     HStack {
@@ -20,23 +22,21 @@ struct TaskList: View {
                             .environmentObject(userSetting)
                     }
                 }
-                .onDelete(perform: deleteTask)
+                .onDelete(perform: { indexSet in
+                    pomidoroApp.deleteTask(at: indexSet, tasks: tasks, moc: moc)
+                })
                 .listRowSeparator(.hidden)
+            }
+        } else {
+            Text("List of tasks is empty")
+                .font(.title)
+                .foregroundColor(.secondary)
         }
     }
 
-    func deleteTask(at offsets: IndexSet) {
-        for offset in offsets {
-            let task = tasks[offset]
-
-            moc.delete(task)
-        }
-
-        try? moc.save()
-    }
-
-    init(showCompleteTask: Bool, userSetting: UserSetting) {
+    init(pomidoroApp: PomidoroViewModel, showCompleteTask: Bool, userSetting: UserSetting) {
         self.userSetting = userSetting
+        self.pomidoroApp = pomidoroApp
         let predicate = showCompleteTask ? nil : NSPredicate(format: "isComplete == false")
         _tasks = FetchRequest<Task>(sortDescriptors: [SortDescriptor(\.isComplete)], predicate: predicate)
     }

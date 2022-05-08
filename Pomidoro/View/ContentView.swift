@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var pomidoroApp: PomidoroViewModel
+    @ObservedObject var notesApp: NotesViewModel
 
     var body: some View {
         TabView {
@@ -23,7 +24,7 @@ struct ContentView: View {
                             .foregroundColor(.red)
                     }
                 }
-            NotesView()
+            NotesView(notesApp: notesApp)
                 .tabItem {
                     Label("Notes", systemImage: "note.text")
                 }

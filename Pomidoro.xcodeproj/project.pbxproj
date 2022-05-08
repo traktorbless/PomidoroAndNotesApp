@@ -19,6 +19,8 @@
 		5D544F972826670C0026877F /* TomatoProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D544F962826670C0026877F /* TomatoProgressBar.swift */; };
 		5D544F992826AE3B0026877F /* PomidoroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D544F982826AE3B0026877F /* PomidoroViewModel.swift */; };
 		5D544F9C2826B6DD0026877F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5D544F9B2826B6DD0026877F /* .gitignore */; };
+		5D681B07282828BA005A27ED /* NoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D681B06282828BA005A27ED /* NoteList.swift */; };
+		5D681B09282829C0005A27ED /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D681B08282829C0005A27ED /* NotesViewModel.swift */; };
 		5D6B9F9A2816F54B00F64E08 /* PomidoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9F992816F54B00F64E08 /* PomidoroView.swift */; };
 		5D6B9F9C2816F65800F64E08 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9F9B2816F65800F64E08 /* NotesView.swift */; };
 		5D6B9FA42818479A00F64E08 /* SettingPomidoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FA32818479A00F64E08 /* SettingPomidoroView.swift */; };
@@ -49,6 +51,8 @@
 		5D544F962826670C0026877F /* TomatoProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomatoProgressBar.swift; sourceTree = "<group>"; };
 		5D544F982826AE3B0026877F /* PomidoroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomidoroViewModel.swift; sourceTree = "<group>"; };
 		5D544F9B2826B6DD0026877F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5D681B06282828BA005A27ED /* NoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteList.swift; sourceTree = "<group>"; };
+		5D681B08282829C0005A27ED /* NotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModel.swift; sourceTree = "<group>"; };
 		5D6B9F992816F54B00F64E08 /* PomidoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomidoroView.swift; sourceTree = "<group>"; };
 		5D6B9F9B2816F65800F64E08 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
 		5D6B9FA32818479A00F64E08 /* SettingPomidoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPomidoroView.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				5D544F982826AE3B0026877F /* PomidoroViewModel.swift */,
+				5D681B08282829C0005A27ED /* NotesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 				5D6B9F9B2816F65800F64E08 /* NotesView.swift */,
 				5DD79FD7281965BB00254903 /* NoteRow.swift */,
 				5DD79FD9281965C600254903 /* NoteView.swift */,
+				5D681B06282828BA005A27ED /* NoteList.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -276,6 +282,8 @@
 				5DD79FD8281965BB00254903 /* NoteRow.swift in Sources */,
 				5DD79FDC281AD6E600254903 /* UserSetting.swift in Sources */,
 				5D38730527F21800007B9A6C /* TaskRow.swift in Sources */,
+				5D681B09282829C0005A27ED /* NotesViewModel.swift in Sources */,
+				5D681B07282828BA005A27ED /* NoteList.swift in Sources */,
 				5D38730027F1EFA7007B9A6C /* TaskView.swift in Sources */,
 				5D6B9F9C2816F65800F64E08 /* NotesView.swift in Sources */,
 				5D544F972826670C0026877F /* TomatoProgressBar.swift in Sources */,

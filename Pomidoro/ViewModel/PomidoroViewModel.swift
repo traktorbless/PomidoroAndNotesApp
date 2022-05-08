@@ -21,4 +21,14 @@ class PomidoroViewModel: ObservableObject {
         task.completeNumberOfPomidoro = 0
         try? moc.save()
     }
+
+    func deleteTask(at offsets: IndexSet, tasks: FetchedResults<Task>, moc: NSManagedObjectContext) {
+        for offset in offsets {
+            let task = tasks[offset]
+
+            moc.delete(task)
+        }
+
+        try? moc.save()
+    }
 }

@@ -16,7 +16,7 @@ struct PomidoroView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    TaskList(showCompleteTask: pomidoroApp.showCompleteTask, userSetting: userSetting)
+                    TaskList(pomidoroApp: pomidoroApp, showCompleteTask: pomidoroApp.showCompleteTask, userSetting: userSetting)
                         .listStyle(.plain)
                         .toolbar {
                             Button {

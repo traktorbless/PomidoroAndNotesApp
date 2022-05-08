@@ -11,23 +11,19 @@ struct NoteView: View {
     @Environment(\.managedObjectContext) var moc
 
     @ObservedObject var note: Note
+    @ObservedObject var notesApp: NotesViewModel
 
     @State private var title: String
     @State private var text: String
 
     var body: some View {
         VStack(alignment: .leading) {
-
             Section {
                 TextField("Title", text: $title)
                     .font(.title)
-                    .textFieldStyle(.roundedBorder)
-//                    .padding()
-//                    .clipShape(RoundedRectangle(cornerRadius: 10))
-//                    .overlay {
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .strokeBorder(.gray)
-//                    }
+                    .frame(height: 50)
+                    .padding(.horizontal)
+                    .roundedRectangleBorder(style: .yellow, cornerRadius: 10, lineWidth: 2)
             }
             .padding(.horizontal)
 
@@ -35,29 +31,20 @@ struct NoteView: View {
 
             Section {
                 TextEditor(text: $text)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(.gray)
-                            .opacity(0.7)
-                    }
+                    .roundedRectangleBorder(style: .yellow, cornerRadius: 10, lineWidth: 2)
             }
             .padding(.horizontal)
 
             Spacer()
         }
-        .onChange(of: title) { _ in
-            note.title = title
-            try? moc.save()
-        }
-        .onChange(of: text) { _ in
-            note.text = text
-            try? moc.save()
+        .onDisappear {
+            notesApp.updateNote(note: note, title: title, text: text, moc: moc)
         }
     }
 
-    init(note: Note) {
+    init(notesApp: NotesViewModel, note: Note) {
         self.note = note
+        self.notesApp = notesApp
         title = note.wrappedTitle
         text = note.wrappedText
     }
