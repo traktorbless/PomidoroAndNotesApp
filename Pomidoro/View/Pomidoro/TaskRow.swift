@@ -19,6 +19,7 @@ struct TaskRow: View {
                         task.isComplete = true
                         try? moc.save()
                     }
+                    .padding(.trailing)
 
                 VStack(alignment: .leading, spacing: 0) {
                     Text(task.wrappedName)

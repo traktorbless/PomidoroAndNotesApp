@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PomidoroView: View {
-    @Environment(\.managedObjectContext) var moc
     @ObservedObject var pomidoroApp: PomidoroViewModel
     @StateObject private var userSetting = UserSetting()
 

@@ -11,13 +11,11 @@ struct CheckBox: View {
     @State var isComplete: Bool
 
     var body: some View {
-        if isComplete {
-            Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(.green)
-        } else {
-            Image(systemName: "circle")
-                .foregroundColor(.secondary)
-        }
+        Image(systemName: isComplete ? "checkmark.circle.fill" : "circle")
+            .resizable()
+            .scaledToFit()
+            .foregroundColor(isComplete ? .green : .secondary)
+            .frame(width: 25, height: 25)
     }
 }
 

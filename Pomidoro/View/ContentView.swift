@@ -20,8 +20,6 @@ struct ContentView: View {
                             .padding(.bottom)
 
                         Text("Pomidoro")
-                            .background(.red)
-                            .foregroundColor(.red)
                     }
                 }
             NotesView(notesApp: notesApp)
