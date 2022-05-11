@@ -23,14 +23,15 @@
 		5D681B09282829C0005A27ED /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D681B08282829C0005A27ED /* NotesViewModel.swift */; };
 		5D6B9F9A2816F54B00F64E08 /* PomidoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9F992816F54B00F64E08 /* PomidoroView.swift */; };
 		5D6B9F9C2816F65800F64E08 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9F9B2816F65800F64E08 /* NotesView.swift */; };
-		5D6B9FA42818479A00F64E08 /* SettingPomidoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FA32818479A00F64E08 /* SettingPomidoroView.swift */; };
 		5D6B9FA628184A0400F64E08 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FA528184A0400F64E08 /* CheckBox.swift */; };
 		5D6B9FA828184E7900F64E08 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FA728184E7900F64E08 /* DataController.swift */; };
 		5D6B9FAB28184EFB00F64E08 /* PomidoroAppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FA928184EFB00F64E08 /* PomidoroAppData.xcdatamodeld */; };
 		5D6B9FB02818524B00F64E08 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FAC2818524B00F64E08 /* Note+CoreDataClass.swift */; };
 		5D6B9FB12818524B00F64E08 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FAD2818524B00F64E08 /* Note+CoreDataProperties.swift */; };
-		5D6B9FB22818524B00F64E08 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FAE2818524B00F64E08 /* Task+CoreDataClass.swift */; };
-		5D6B9FB32818524B00F64E08 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B9FAF2818524B00F64E08 /* Task+CoreDataProperties.swift */; };
+		5D993302282A7DBC006900FC /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D993301282A7DBC006900FC /* SoundPlayer.swift */; };
+		5D993304282A7F26006900FC /* CompleteSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5D993303282A7F26006900FC /* CompleteSound.mp3 */; };
+		5D993308282A89F1006900FC /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D993306282A89F1006900FC /* Task+CoreDataClass.swift */; };
+		5D993309282A89F1006900FC /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D993307282A89F1006900FC /* Task+CoreDataProperties.swift */; };
 		5DD79FD8281965BB00254903 /* NoteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD79FD7281965BB00254903 /* NoteRow.swift */; };
 		5DD79FDA281965C600254903 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD79FD9281965C600254903 /* NoteView.swift */; };
 		5DD79FDC281AD6E600254903 /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD79FDB281AD6E600254903 /* UserSetting.swift */; };
@@ -55,14 +56,15 @@
 		5D681B08282829C0005A27ED /* NotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModel.swift; sourceTree = "<group>"; };
 		5D6B9F992816F54B00F64E08 /* PomidoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomidoroView.swift; sourceTree = "<group>"; };
 		5D6B9F9B2816F65800F64E08 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
-		5D6B9FA32818479A00F64E08 /* SettingPomidoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPomidoroView.swift; sourceTree = "<group>"; };
 		5D6B9FA528184A0400F64E08 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		5D6B9FA728184E7900F64E08 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		5D6B9FAA28184EFB00F64E08 /* PomidoroAppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PomidoroAppData.xcdatamodel; sourceTree = "<group>"; };
 		5D6B9FAC2818524B00F64E08 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataClass.swift"; path = "Pomidoro/Model/Note+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		5D6B9FAD2818524B00F64E08 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "Pomidoro/Model/Note+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		5D6B9FAE2818524B00F64E08 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "Pomidoro/Model/Task+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		5D6B9FAF2818524B00F64E08 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "Pomidoro/Model/Task+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5D993301282A7DBC006900FC /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		5D993303282A7F26006900FC /* CompleteSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CompleteSound.mp3; sourceTree = "<group>"; };
+		5D993306282A89F1006900FC /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5D993307282A89F1006900FC /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5DD79FD7281965BB00254903 /* NoteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRow.swift; sourceTree = "<group>"; };
 		5DD79FD9281965C600254903 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		5DD79FDB281AD6E600254903 /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		5D3872E927F1D8E7007B9A6C /* Pomidoro */ = {
 			isa = PBXGroup;
 			children = (
+				5D993305282A7F2E006900FC /* Resources */,
 				5D3872EA27F1D8E7007B9A6C /* PomidoroApp.swift */,
 				5D544F942826632F0026877F /* Extensions.swift */,
 				5D544F9A2826AE460026877F /* ViewModel */,
@@ -123,10 +126,11 @@
 			isa = PBXGroup;
 			children = (
 				5D6B9FA728184E7900F64E08 /* DataController.swift */,
+				5D993301282A7DBC006900FC /* SoundPlayer.swift */,
 				5D6B9FAC2818524B00F64E08 /* Note+CoreDataClass.swift */,
 				5D6B9FAD2818524B00F64E08 /* Note+CoreDataProperties.swift */,
-				5D6B9FAE2818524B00F64E08 /* Task+CoreDataClass.swift */,
-				5D6B9FAF2818524B00F64E08 /* Task+CoreDataProperties.swift */,
+				5D993306282A89F1006900FC /* Task+CoreDataClass.swift */,
+				5D993307282A89F1006900FC /* Task+CoreDataProperties.swift */,
 				5D6B9FA928184EFB00F64E08 /* PomidoroAppData.xcdatamodeld */,
 				5DD79FDB281AD6E600254903 /* UserSetting.swift */,
 			);
@@ -152,17 +156,24 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		5D993305282A7F2E006900FC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5D993303282A7F26006900FC /* CompleteSound.mp3 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		5DD79FD52818724B00254903 /* Pomidoro */ = {
 			isa = PBXGroup;
 			children = (
 				5D6B9F992816F54B00F64E08 /* PomidoroView.swift */,
 				5D38730427F21800007B9A6C /* TaskRow.swift */,
 				5D544F92282587110026877F /* TaskList.swift */,
+				5D3872FF27F1EFA7007B9A6C /* TaskView.swift */,
+				5D3872FD27F1E0FF007B9A6C /* AddTaskView.swift */,
 				5DD79FDD282267B700254903 /* ProgressRing.swift */,
 				5D6B9FA528184A0400F64E08 /* CheckBox.swift */,
-				5D3872FF27F1EFA7007B9A6C /* TaskView.swift */,
-				5D6B9FA32818479A00F64E08 /* SettingPomidoroView.swift */,
-				5D3872FD27F1E0FF007B9A6C /* AddTaskView.swift */,
 				5D544F962826670C0026877F /* TomatoProgressBar.swift */,
 			);
 			path = Pomidoro;
@@ -239,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D3872F227F1D8E9007B9A6C /* Preview Assets.xcassets in Resources */,
+				5D993304282A7F26006900FC /* CompleteSound.mp3 in Resources */,
 				5D544F9C2826B6DD0026877F /* .gitignore in Resources */,
 				5D3872EF27F1D8E9007B9A6C /* Assets.xcassets in Resources */,
 			);
@@ -271,15 +283,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D993302282A7DBC006900FC /* SoundPlayer.swift in Sources */,
 				5D6B9FA828184E7900F64E08 /* DataController.swift in Sources */,
-				5D6B9FA42818479A00F64E08 /* SettingPomidoroView.swift in Sources */,
-				5D6B9FB22818524B00F64E08 /* Task+CoreDataClass.swift in Sources */,
 				5D3872FE27F1E0FF007B9A6C /* AddTaskView.swift in Sources */,
 				5D6B9FB12818524B00F64E08 /* Note+CoreDataProperties.swift in Sources */,
 				5DD79FDE282267B800254903 /* ProgressRing.swift in Sources */,
 				5D3872ED27F1D8E7007B9A6C /* ContentView.swift in Sources */,
 				5D544F992826AE3B0026877F /* PomidoroViewModel.swift in Sources */,
 				5DD79FD8281965BB00254903 /* NoteRow.swift in Sources */,
+				5D993308282A89F1006900FC /* Task+CoreDataClass.swift in Sources */,
 				5DD79FDC281AD6E600254903 /* UserSetting.swift in Sources */,
 				5D38730527F21800007B9A6C /* TaskRow.swift in Sources */,
 				5D681B09282829C0005A27ED /* NotesViewModel.swift in Sources */,
@@ -287,6 +299,7 @@
 				5D38730027F1EFA7007B9A6C /* TaskView.swift in Sources */,
 				5D6B9F9C2816F65800F64E08 /* NotesView.swift in Sources */,
 				5D544F972826670C0026877F /* TomatoProgressBar.swift in Sources */,
+				5D993309282A89F1006900FC /* Task+CoreDataProperties.swift in Sources */,
 				5D6B9FA628184A0400F64E08 /* CheckBox.swift in Sources */,
 				5D6B9FAB28184EFB00F64E08 /* PomidoroAppData.xcdatamodeld in Sources */,
 				5DD79FDA281965C600254903 /* NoteView.swift in Sources */,
@@ -294,7 +307,6 @@
 				5D544F93282587110026877F /* TaskList.swift in Sources */,
 				5D544F952826632F0026877F /* Extensions.swift in Sources */,
 				5D6B9F9A2816F54B00F64E08 /* PomidoroView.swift in Sources */,
-				5D6B9FB32818524B00F64E08 /* Task+CoreDataProperties.swift in Sources */,
 				5D3872EB27F1D8E7007B9A6C /* PomidoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

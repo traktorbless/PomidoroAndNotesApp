@@ -1,10 +1,3 @@
-//
-//  ProgressRing.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 04.05.2022.
-//
-
 import SwiftUI
 
 struct ProgressRing: View {
@@ -18,6 +11,7 @@ struct ProgressRing: View {
     }
 
     var body: some View {
+        // MARK: Progress Ring
         ZStack {
             Circle()
                 .stroke(lineWidth: 20)
@@ -28,7 +22,7 @@ struct ProgressRing: View {
                 .trim(from: 0.0, to: min(progress, 1.0))
                 .stroke(.tomato, lineWidth: 20)
                 .rotationEffect(Angle(degrees: 270))
-                .animation(.linear(duration: 1.0), value: progress)
+                .animation(.linear(duration: 1), value: progress)
 
             VStack(spacing: 30) {
                 VStack(spacing: 5) {
@@ -43,11 +37,5 @@ struct ProgressRing: View {
         }
         .frame(width: 250, height: 250)
         .padding()
-    }
-}
-
-struct ProgressRing_Previews: PreviewProvider {
-    static var previews: some View {
-        ProgressRing(progress: 0.5, minute: 25, second: 34)
     }
 }

@@ -1,10 +1,3 @@
-//
-//  PomidoroApp.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 28.03.2022.
-//
-
 import SwiftUI
 
 @main

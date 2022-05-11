@@ -1,10 +1,3 @@
-//
-//  NotesViewModel.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 08.05.2022.
-//
-
 import Foundation
 import CoreData
 import SwiftUI

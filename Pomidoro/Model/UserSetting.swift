@@ -8,6 +8,7 @@
 import Foundation
 
 class UserSetting: ObservableObject {
+    static var shared = UserSetting()
     @Published var setting: Setting {
         didSet {
             if let encode = try? JSONEncoder().encode(setting) {

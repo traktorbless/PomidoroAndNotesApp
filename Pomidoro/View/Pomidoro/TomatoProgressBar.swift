@@ -1,10 +1,3 @@
-//
-//  TomatoProgressBar.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 07.05.2022.
-//
-
 import SwiftUI
 
 struct TomatoProgressBar: View {
@@ -20,11 +13,5 @@ struct TomatoProgressBar: View {
                     .opacity(index > completePomidoro ? 0.5 : 1)
             }
         }
-    }
-}
-
-struct TomatoProgressBar_Previews: PreviewProvider {
-    static var previews: some View {
-        TomatoProgressBar(completePomidoro: 3, countOfPomidoro: 4)
     }
 }

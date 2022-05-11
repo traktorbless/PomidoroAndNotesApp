@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 28.03.2022.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -15,16 +8,11 @@ struct ContentView: View {
         TabView {
             PomidoroView(pomidoroApp: pomidoroApp)
                 .tabItem {
-                    VStack {
-                        Image("tomato")
-                            .padding(.bottom)
-
-                        Text("Pomidoro")
-                    }
+                    Label("Pomidoro", image: "tomato")
                 }
             NotesView(notesApp: notesApp)
                 .tabItem {
-                    Label("Notes", systemImage: "note.text")
+                    Label("Notes", image: "notes")
                 }
         }
     }

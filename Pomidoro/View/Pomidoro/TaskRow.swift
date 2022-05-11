@@ -1,23 +1,17 @@
-//
-//  TaskRow.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 28.03.2022.
-//
-
 import SwiftUI
 
 struct TaskRow: View {
     @ObservedObject var task: Task
     @Environment(\.managedObjectContext) var moc
-    @EnvironmentObject var userSetting: UserSetting
 
     var body: some View {
+        // MARK: Cell of tasks
             HStack {
                 CheckBox(isComplete: task.isComplete)
                     .onTapGesture {
                         task.isComplete = true
                         try? moc.save()
+                        MusicPlayer.shared.playSoundEffect(soundEffect: "CompleteSound")
                     }
                     .padding(.trailing)
 
@@ -33,11 +27,11 @@ struct TaskRow: View {
                 Spacer()
 
                 NavigationLink {
-                    TaskView(timeOfPomidoro: userSetting.setting.timeOfPomidoro, task: task)
-                        .environmentObject(userSetting)
+                    TaskView(task: task)
                 } label: {
                     EmptyView()
                 }
+                .disabled(task.isComplete)
             }
             .roundedRectangleBorder(style: .tomato, cornerRadius: GeometryValue.cornerRadius, lineWidth: GeometryValue.lineWidth)
         }

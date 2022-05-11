@@ -1,17 +1,9 @@
-//
-//  TaskView.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 28.03.2022.
-//
-
 import SwiftUI
 
 struct TaskView: View {
     @ObservedObject var task: Task
-    @EnvironmentObject var userSettings: UserSetting
     @Environment(\.managedObjectContext) var moc
-    @State private var status: StateOfButton
+    @State private var statusOfButton: StateOfButton
     @State private var statusOfPomidoro: StateOfPomidoro
     @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var minute: Int
@@ -33,14 +25,11 @@ struct TaskView: View {
                 .fontWeight(.bold)
 
             ProgressRing(progress: progress, minute: minute, second: second)
-            .onReceive(time) { _ in
-               computeTimer()
-            }
 
             Button {
-                status = status == .start ? .pause : .start
+                statusOfButton = statusOfButton == .start ? .pause : .start
             } label: {
-                Text(status == .start ? "Start" : "Pause")
+                Text(statusOfButton == .start ? "Start" : "Pause")
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -66,16 +55,33 @@ struct TaskView: View {
 
             Spacer()
         }
+        .onReceive(time) { _ in
+           computeTimer()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+            // MARK: Lock Screen
+            saveData()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            // MARK: Unlock Screen
+            loadData()
+        }
+        .onDisappear {
+            saveData()
+        }
+        .onAppear {
+            loadData()
+        }
     }
 
-    init(timeOfPomidoro: Int, task: Task) {
-        status = .start
-        statusOfPomidoro = .pomidoro
-        minute = timeOfPomidoro
-        second = 0
-        self.task = task
-        progress = 0.0
+    init(task: Task) {
         time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+        statusOfButton = task.statusOfButton == "Start" ? .start : .pause
+        statusOfPomidoro = task.wrappedStatusOfPomidoro == "Pomidoro" ? .pomidoro : .pause
+        self.task = task
+        minute = Int(task.minuteOfProgress)
+        second = Int(task.secondOfProgress)
+        progress = task.progress
     }
 
     private enum StateOfButton {
@@ -89,20 +95,21 @@ struct TaskView: View {
     }
 
     private func computeTimer() {
-        if status == .pause {
+        if statusOfButton == .pause {
             if second == 0 {
                 if minute == 0 {
-                    status = .start
-                    statusOfPomidoro = statusOfPomidoro == .pomidoro ? .pause : .pomidoro
-                    if statusOfPomidoro == .pomidoro {
-                        minute = userSettings.setting.timeOfPomidoro
+                    statusOfButton = .start
+                    if statusOfPomidoro == .pause {
+                        statusOfPomidoro = .pomidoro
+                        minute = Int(task.taskMinuteOfPomidoro)
                         task.completeNumberOfPomidoro += 1
                         if task.completeNumberOfPomidoro == task.numberOfPomidoro {
                             task.isComplete = true
                         }
                         try? moc.save()
                     } else {
-                        minute = userSettings.setting.timeOfPause
+                        statusOfPomidoro = .pause
+                        minute = Int(task.taskMinuteOfPause)
                     }
                     withAnimation(.easeInOut) {
                         progress = 0
@@ -114,18 +121,58 @@ struct TaskView: View {
             } else {
                 second -= 1
             }
-            progress = 1.0 - Double(minute * 60 + second) / Double((statusOfPomidoro == .pomidoro ? userSettings.setting.timeOfPomidoro : userSettings.setting.timeOfPause) * 60)
+            progress = 1.0 - Double(minute * 60 + second) / Double((statusOfPomidoro == .pomidoro ? task.taskMinuteOfPomidoro : task.taskMinuteOfPause) * 60)
         }
     }
 
     private func skipPause() {
-        status = .start
+        statusOfButton = .start
         statusOfPomidoro = .pomidoro
-        minute = userSettings.setting.timeOfPomidoro
+        minute = Int(task.taskMinuteOfPomidoro)
         task.completeNumberOfPomidoro += 1
         if task.completeNumberOfPomidoro == task.numberOfPomidoro {
             task.isComplete = true
         }
         try? moc.save()
+    }
+
+    private func saveData() {
+        task.minuteOfProgress = Int16(minute)
+        task.secondOfProgress = Int16(second)
+        task.statusOfTime = statusOfPomidoro == .pomidoro ? "Pomidoro" : "Pause"
+        task.timeOfCloseTimer = Date.now
+        task.statusOfButton = statusOfButton == .start ? "Start" : "Pause"
+        try? moc.save()
+    }
+
+    private func loadData() {
+        if statusOfButton == .pause {
+            if let timeOfClosingTimer = task.timeOfCloseTimer {
+                let timeInterval = Date.now.timeIntervalSince(timeOfClosingTimer)
+                if minute * 60 + second - Int(timeInterval) < 0 {
+                    progress = 0.0
+                    second = 0
+                    if statusOfPomidoro == .pomidoro {
+                        statusOfPomidoro = .pause
+                        minute = Int(task.taskMinuteOfPause)
+                    } else {
+                        statusOfPomidoro = .pomidoro
+                        task.completeNumberOfPomidoro += 1
+                        if task.completeNumberOfPomidoro == task.numberOfPomidoro {
+                            task.isComplete = true
+                        }
+                        minute = Int(task.taskMinuteOfPomidoro)
+                    }
+                    statusOfButton = .start
+                } else {
+                    minute -= Int(timeInterval) / 60
+                    second -= Int(timeInterval) % 60
+                    if second < 0 {
+                        second = 60 + second
+                    }
+                    progress = 1 - Double(minute * 60 + second) / Double(task.taskMinuteOfPomidoro * 60)
+                }
+            }
+        }
     }
 }

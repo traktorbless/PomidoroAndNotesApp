@@ -1,10 +1,3 @@
-//
-//  AddTaskView.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 28.03.2022.
-//
-
 import SwiftUI
 
 struct AddTaskView: View {
@@ -12,6 +5,8 @@ struct AddTaskView: View {
 
     @State private var name = ""
     @State private var numberOfPomidoro = 1
+    @State private var timeOfPomidoro = 25
+    @State private var timeOfPause = 5
     @ObservedObject var pomidoroAddTask: PomidoroViewModel
 
     @Environment(\.managedObjectContext) var moc
@@ -36,8 +31,28 @@ struct AddTaskView: View {
                         }
                     }
 
+                    Section {
+                        Picker("Time of Pomidoro", selection: $timeOfPomidoro) {
+                            ForEach(1..<51, id: \.self) {
+                                Text("\($0)")
+                            }
+                        }
+                    } header: {
+                        Text("Time of Pomidoro")
+                    }
+
+                    Section {
+                        Picker("Time of Pause", selection: $timeOfPause) {
+                            ForEach(1..<16, id: \.self) {
+                                Text("\($0)")
+                            }
+                        }
+                    } header: {
+                        Text("Time of Pause")
+                    }
+
                     Button {
-                        pomidoroAddTask.addTask(name: name, numberOfPomidoro: numberOfPomidoro, moc: moc)
+                        pomidoroAddTask.addTask(name: name, numberOfPomidoro: numberOfPomidoro, minuteOfPomidoro: timeOfPomidoro, minuteOfPause: timeOfPause, moc: moc)
                         dismiss()
                     } label: {
                         HStack {

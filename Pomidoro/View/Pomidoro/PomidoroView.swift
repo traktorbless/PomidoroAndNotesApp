@@ -1,21 +1,13 @@
-//
-//  PomidoroView.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 25.04.2022.
-//
-
 import SwiftUI
 
 struct PomidoroView: View {
     @ObservedObject var pomidoroApp: PomidoroViewModel
-    @StateObject private var userSetting = UserSetting()
 
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
-                    TaskList(pomidoroApp: pomidoroApp, showCompleteTask: pomidoroApp.showCompleteTask, userSetting: userSetting)
+                    TaskList(pomidoroApp: pomidoroApp, showCompleteTask: pomidoroApp.showCompleteTask)
                         .listStyle(.plain)
                         .toolbar {
                             Button {
@@ -23,17 +15,6 @@ struct PomidoroView: View {
                             } label: {
                                 Image(systemName: "plus")
                                     .foregroundColor(.tomato)
-                            }
-                        }
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                NavigationLink {
-                                    SettingPomidoroView()
-                                        .environmentObject(userSetting)
-                                }label: {
-                                    Image(systemName: "gear")
-                                        .foregroundColor(.tomato)
-                                }
                             }
                         }
                         .sheet(isPresented: $pomidoroApp.addTask) {

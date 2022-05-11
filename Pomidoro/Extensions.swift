@@ -1,10 +1,3 @@
-//
-//  extensions.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 07.05.2022.
-//
-
 import Foundation
 import SwiftUI
 

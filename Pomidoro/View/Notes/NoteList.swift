@@ -1,10 +1,3 @@
-//
-//  NoteList.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 08.05.2022.
-//
-
 import SwiftUI
 
 struct NoteList: View {

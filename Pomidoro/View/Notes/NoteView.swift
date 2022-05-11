@@ -1,10 +1,3 @@
-//
-//  NoteView.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 27.04.2022.
-//
-
 import SwiftUI
 
 struct NoteView: View {

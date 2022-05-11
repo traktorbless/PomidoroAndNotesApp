@@ -1,25 +1,17 @@
-//
-//  TaskList.swift
-//  Pomidoro
-//
-//  Created by Антон Таранов on 06.05.2022.
-//
-
 import SwiftUI
 
 struct TaskList: View {
     @FetchRequest var tasks: FetchedResults<Task>
     @Environment(\.managedObjectContext) var moc
-    @ObservedObject var userSetting: UserSetting
     @ObservedObject var pomidoroApp: PomidoroViewModel
 
     var body: some View {
+        // MARK: List of tasks
         if !tasks.isEmpty {
             List {
                 ForEach(tasks) { task in
                     HStack {
                         TaskRow(task: task)
-                            .environmentObject(userSetting)
                     }
                 }
                 .onDelete(perform: { indexSet in
@@ -34,8 +26,7 @@ struct TaskList: View {
         }
     }
 
-    init(pomidoroApp: PomidoroViewModel, showCompleteTask: Bool, userSetting: UserSetting) {
-        self.userSetting = userSetting
+    init(pomidoroApp: PomidoroViewModel, showCompleteTask: Bool) {
         self.pomidoroApp = pomidoroApp
         let predicate = showCompleteTask ? nil : NSPredicate(format: "isComplete == false")
         _tasks = FetchRequest<Task>(sortDescriptors: [SortDescriptor(\.isComplete)], predicate: predicate)
