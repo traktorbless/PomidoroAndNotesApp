@@ -4,6 +4,8 @@ import CoreData
 class PomidoroViewModel: ObservableObject {
     @Published var addTask = false
     @Published var showCompleteTask = false
+    @Published var showChangeTask = false
+    @Published var hideTabItems = false
 
     func addTask(name: String, numberOfPomidoro: Int, minuteOfPomidoro: Int, minuteOfPause: Int, moc: NSManagedObjectContext) {
         let task = Task(context: moc)
@@ -29,6 +31,11 @@ class PomidoroViewModel: ObservableObject {
             moc.delete(task)
         }
 
+        try? moc.save()
+    }
+
+    func deleteTask(task: Task, moc: NSManagedObjectContext) {
+        moc.delete(task)
         try? moc.save()
     }
 }

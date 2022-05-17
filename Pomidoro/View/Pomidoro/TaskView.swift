@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct TaskView: View {
     @ObservedObject var task: Task
@@ -60,17 +61,31 @@ struct TaskView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
             // MARK: Lock Screen
+            showNotification()
             saveData()
+            print("Lock screen")
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             // MARK: Unlock Screen
             loadData()
+            print("Unlock screen")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+            // MARK: Close App
+            saveData()
+            task.statusOfButton = "Start"
+            try? moc.save()
+            print("Close App")
         }
         .onDisappear {
             saveData()
+            task.statusOfButton = "Start"
+            try? moc.save()
+            print("Disappear task view")
         }
         .onAppear {
             loadData()
+            print("Appear task view")
         }
     }
 
@@ -94,6 +109,23 @@ struct TaskView: View {
         case pause
     }
 
+    private func showNotification() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        if statusOfButton == .pause {
+            let content = UNMutableNotificationContent()
+            content.title = statusOfPomidoro == .pomidoro ? "Work time has been ended" : "Break time has been ended"
+            content.body = statusOfPomidoro == .pomidoro ? "Start your break" : "Continue your study"
+            content.sound = UNNotificationSound.default
+
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(minute * 60 + second + 5), repeats: false)
+
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+            UNUserNotificationCenter.current().add(request)
+            print("new notification")
+        }
+    }
+
     private func computeTimer() {
         if statusOfButton == .pause {
             if second == 0 {
@@ -114,6 +146,7 @@ struct TaskView: View {
                     withAnimation(.easeInOut) {
                         progress = 0
                     }
+                    MusicPlayer.shared.playSoundEffect(soundEffect: "timeHasEnded")
                 } else {
                     minute -= 1
                     second = 59

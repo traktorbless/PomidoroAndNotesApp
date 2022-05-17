@@ -7,14 +7,7 @@ struct TaskRow: View {
     var body: some View {
         // MARK: Cell of tasks
             HStack {
-                CheckBox(isComplete: task.isComplete)
-                    .onTapGesture {
-                        task.isComplete = true
-                        try? moc.save()
-                        MusicPlayer.shared.playSoundEffect(soundEffect: "CompleteSound")
-                    }
-                    .padding(.trailing)
-
+                Spacer(minLength: 40)
                 VStack(alignment: .leading, spacing: 0) {
                     Text(task.wrappedName)
                         .font(.title2)
@@ -24,14 +17,20 @@ struct TaskRow: View {
                         .padding(.bottom)
                 }
 
-                Spacer()
-
                 NavigationLink {
                     TaskView(task: task)
                 } label: {
                     EmptyView()
                 }
                 .disabled(task.isComplete)
+            }
+            .overlay(alignment: .leading) {
+                CheckBox(isComplete: task.isComplete)
+                    .onTapGesture {
+                        task.isComplete = true
+                        try? moc.save()
+                        MusicPlayer.shared.playSoundEffect(soundEffect: "CompleteSound")
+                    }
             }
             .roundedRectangleBorder(style: .tomato, cornerRadius: GeometryValue.cornerRadius, lineWidth: GeometryValue.lineWidth)
         }

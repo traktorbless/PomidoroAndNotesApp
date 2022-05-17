@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D2D34C128337658007CBA82 /* timeHasEnded.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5D2D34C028337658007CBA82 /* timeHasEnded.mp3 */; };
 		5D3872EB27F1D8E7007B9A6C /* PomidoroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3872EA27F1D8E7007B9A6C /* PomidoroApp.swift */; };
 		5D3872ED27F1D8E7007B9A6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3872EC27F1D8E7007B9A6C /* ContentView.swift */; };
 		5D3872EF27F1D8E9007B9A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D3872EE27F1D8E9007B9A6C /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D2D34C028337658007CBA82 /* timeHasEnded.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = timeHasEnded.mp3; sourceTree = "<group>"; };
 		5D3872E727F1D8E7007B9A6C /* Pomidoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pomidoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3872EA27F1D8E7007B9A6C /* PomidoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomidoroApp.swift; sourceTree = "<group>"; };
 		5D3872EC27F1D8E7007B9A6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,8 +65,8 @@
 		5D6B9FAD2818524B00F64E08 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "Pomidoro/Model/Note+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5D993301282A7DBC006900FC /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		5D993303282A7F26006900FC /* CompleteSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CompleteSound.mp3; sourceTree = "<group>"; };
-		5D993306282A89F1006900FC /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		5D993307282A89F1006900FC /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5D993306282A89F1006900FC /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "Pomidoro/Model/Task+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5D993307282A89F1006900FC /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "Pomidoro/Model/Task+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5DD79FD7281965BB00254903 /* NoteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRow.swift; sourceTree = "<group>"; };
 		5DD79FD9281965C600254903 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		5DD79FDB281AD6E600254903 /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		5D993305282A7F2E006900FC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5D2D34C028337658007CBA82 /* timeHasEnded.mp3 */,
 				5D993303282A7F26006900FC /* CompleteSound.mp3 */,
 			);
 			name = Resources;
@@ -253,6 +256,7 @@
 				5D993304282A7F26006900FC /* CompleteSound.mp3 in Resources */,
 				5D544F9C2826B6DD0026877F /* .gitignore in Resources */,
 				5D3872EF27F1D8E9007B9A6C /* Assets.xcassets in Resources */,
+				5D2D34C128337658007CBA82 /* timeHasEnded.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +446,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -471,6 +476,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

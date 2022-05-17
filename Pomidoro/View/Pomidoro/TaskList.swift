@@ -10,9 +10,7 @@ struct TaskList: View {
         if !tasks.isEmpty {
             List {
                 ForEach(tasks) { task in
-                    HStack {
-                        TaskRow(task: task)
-                    }
+                    TaskRow(task: task)
                 }
                 .onDelete(perform: { indexSet in
                     pomidoroApp.deleteTask(at: indexSet, tasks: tasks, moc: moc)
