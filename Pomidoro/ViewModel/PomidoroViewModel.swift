@@ -5,7 +5,6 @@ class PomidoroViewModel: ObservableObject {
     @Published var addTask = false
     @Published var showCompleteTask = false
     @Published var showChangeTask = false
-    @Published var hideTabItems = false
 
     func addTask(name: String, numberOfPomidoro: Int, minuteOfPomidoro: Int, minuteOfPause: Int, moc: NSManagedObjectContext) {
         let task = Task(context: moc)
@@ -27,7 +26,6 @@ class PomidoroViewModel: ObservableObject {
     func deleteTask(at offsets: IndexSet, tasks: FetchedResults<Task>, moc: NSManagedObjectContext) {
         for offset in offsets {
             let task = tasks[offset]
-
             moc.delete(task)
         }
 

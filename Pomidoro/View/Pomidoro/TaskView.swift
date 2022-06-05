@@ -1,18 +1,10 @@
 import SwiftUI
-import UserNotifications
 
 struct TaskView: View {
     @ObservedObject var task: Task
     @Environment(\.managedObjectContext) var moc
-    @State private var statusOfButton: StateOfButton
-    @State private var statusOfPomidoro: StateOfPomidoro
-    @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State private var minute: Int
-    @State private var second: Int
-    @State private var progress: Double
-    private var disableSkip: Bool {
-        statusOfPomidoro == .pomidoro ? true : false
-    }
+    @Environment(\.scenePhase) var scenePhase
+    @ObservedObject var taskViewModel: PomidoroTaskViewModel
 
     var body: some View {
         VStack {
@@ -21,16 +13,16 @@ struct TaskView: View {
 
             Spacer()
 
-            Text(statusOfPomidoro == .pomidoro ? "Work Time" : "Pause Time")
+            Text(taskViewModel.statusOfPomidoro == .pomidoro ? "Work Time" : "Pause Time")
                 .font(.title)
                 .fontWeight(.bold)
 
-            ProgressRing(progress: progress, minute: minute, second: second)
+            ProgressRing(progress: taskViewModel.progress, minute: taskViewModel.minute, second: taskViewModel.second)
 
             Button {
-                statusOfButton = statusOfButton == .start ? .pause : .start
+                taskViewModel.statusOfButton = taskViewModel.statusOfButton == .start ? .pause : .start
             } label: {
-                Text(statusOfButton == .start ? "Start" : "Pause")
+                Text(taskViewModel.statusOfButton == .start ? "Start" : "Pause")
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -41,7 +33,7 @@ struct TaskView: View {
             }
 
             Button {
-                skipPause()
+                taskViewModel.skipPause(task: task, moc: moc)
             } label: {
                 Text("Skip")
                     .font(.subheadline)
@@ -50,162 +42,44 @@ struct TaskView: View {
                     .frame(width: 150, height: 44)
                     .background(.thickMaterial)
                     .cornerRadius(20)
-                    .hideView(isHide: disableSkip)
+                    .hideView(isHide: taskViewModel.disableSkip)
             }
-            .disabled(disableSkip)
+            .disabled(taskViewModel.disableSkip)
 
             Spacer()
         }
-        .onReceive(time) { _ in
-           computeTimer()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
-            // MARK: Lock Screen
-            showNotification()
-            saveData()
-            print("Lock screen")
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            // MARK: Unlock Screen
-            loadData()
-            print("Unlock screen")
+        .onChange(of: scenePhase, perform: { newPhase in
+            if newPhase == .active {
+                taskViewModel.loadData(task: task)
+            } else if newPhase == .background {
+                taskViewModel.showNotification()
+                taskViewModel.saveData(task: task, moc: moc)
+            }
+        })
+        .onReceive(taskViewModel.time) { _ in
+            taskViewModel.computeTimer(task: task, moc: moc)
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
             // MARK: Close App
-            saveData()
+            taskViewModel.saveData(task: task, moc: moc)
             task.statusOfButton = "Start"
             try? moc.save()
             print("Close App")
         }
         .onDisappear {
-            saveData()
+            taskViewModel.saveData(task: task, moc: moc)
             task.statusOfButton = "Start"
             try? moc.save()
             print("Disappear task view")
         }
         .onAppear {
-            loadData()
+            taskViewModel.loadData(task: task)
             print("Appear task view")
         }
     }
 
     init(task: Task) {
-        time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-        statusOfButton = task.statusOfButton == "Start" ? .start : .pause
-        statusOfPomidoro = task.wrappedStatusOfPomidoro == "Pomidoro" ? .pomidoro : .pause
         self.task = task
-        minute = Int(task.minuteOfProgress)
-        second = Int(task.secondOfProgress)
-        progress = task.progress
-    }
-
-    private enum StateOfButton {
-        case pause
-        case start
-    }
-
-    private enum StateOfPomidoro {
-        case pomidoro
-        case pause
-    }
-
-    private func showNotification() {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        if statusOfButton == .pause {
-            let content = UNMutableNotificationContent()
-            content.title = statusOfPomidoro == .pomidoro ? "Work time has been ended" : "Break time has been ended"
-            content.body = statusOfPomidoro == .pomidoro ? "Start your break" : "Continue your study"
-            content.sound = UNNotificationSound.default
-
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(minute * 60 + second + 5), repeats: false)
-
-            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-
-            UNUserNotificationCenter.current().add(request)
-            print("new notification")
-        }
-    }
-
-    private func computeTimer() {
-        if statusOfButton == .pause {
-            if second == 0 {
-                if minute == 0 {
-                    statusOfButton = .start
-                    if statusOfPomidoro == .pause {
-                        statusOfPomidoro = .pomidoro
-                        minute = Int(task.taskMinuteOfPomidoro)
-                        task.completeNumberOfPomidoro += 1
-                        if task.completeNumberOfPomidoro == task.numberOfPomidoro {
-                            task.isComplete = true
-                        }
-                        try? moc.save()
-                    } else {
-                        statusOfPomidoro = .pause
-                        minute = Int(task.taskMinuteOfPause)
-                    }
-                    withAnimation(.easeInOut) {
-                        progress = 0
-                    }
-                    MusicPlayer.shared.playSoundEffect(soundEffect: "timeHasEnded")
-                } else {
-                    minute -= 1
-                    second = 59
-                }
-            } else {
-                second -= 1
-            }
-            progress = 1.0 - Double(minute * 60 + second) / Double((statusOfPomidoro == .pomidoro ? task.taskMinuteOfPomidoro : task.taskMinuteOfPause) * 60)
-        }
-    }
-
-    private func skipPause() {
-        statusOfButton = .start
-        statusOfPomidoro = .pomidoro
-        minute = Int(task.taskMinuteOfPomidoro)
-        task.completeNumberOfPomidoro += 1
-        if task.completeNumberOfPomidoro == task.numberOfPomidoro {
-            task.isComplete = true
-        }
-        try? moc.save()
-    }
-
-    private func saveData() {
-        task.minuteOfProgress = Int16(minute)
-        task.secondOfProgress = Int16(second)
-        task.statusOfTime = statusOfPomidoro == .pomidoro ? "Pomidoro" : "Pause"
-        task.timeOfCloseTimer = Date.now
-        task.statusOfButton = statusOfButton == .start ? "Start" : "Pause"
-        try? moc.save()
-    }
-
-    private func loadData() {
-        if statusOfButton == .pause {
-            if let timeOfClosingTimer = task.timeOfCloseTimer {
-                let timeInterval = Date.now.timeIntervalSince(timeOfClosingTimer)
-                if minute * 60 + second - Int(timeInterval) < 0 {
-                    progress = 0.0
-                    second = 0
-                    if statusOfPomidoro == .pomidoro {
-                        statusOfPomidoro = .pause
-                        minute = Int(task.taskMinuteOfPause)
-                    } else {
-                        statusOfPomidoro = .pomidoro
-                        task.completeNumberOfPomidoro += 1
-                        if task.completeNumberOfPomidoro == task.numberOfPomidoro {
-                            task.isComplete = true
-                        }
-                        minute = Int(task.taskMinuteOfPomidoro)
-                    }
-                    statusOfButton = .start
-                } else {
-                    minute -= Int(timeInterval) / 60
-                    second -= Int(timeInterval) % 60
-                    if second < 0 {
-                        second = 60 + second
-                    }
-                    progress = 1 - Double(minute * 60 + second) / Double(task.taskMinuteOfPomidoro * 60)
-                }
-            }
-        }
+        taskViewModel = PomidoroTaskViewModel(task: task)
     }
 }

@@ -11,12 +11,12 @@ struct ContentView: View {
                 .tabItem {
                     Label("Pomidoro", image: "tomato")
                 }
+
             NotesView(notesApp: notesApp)
                 .tag("Notes")
                 .tabItem {
                     Label("Notes", image: "notes")
                 }
         }
-        .hideView(isHide: pomidoroApp.hideTabItems)
     }
 }

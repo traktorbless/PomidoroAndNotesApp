@@ -13,18 +13,18 @@ struct NoteView: View {
         VStack(alignment: .leading) {
             Section {
                 TextField("Title", text: $title)
-                    .font(.title)
+                    .font(.largeTitle)
                     .frame(height: 50)
+                    .roundedRectangleBorder(style: .gray, cornerRadius: 10, lineWidth: 1)
                     .padding(.horizontal)
-                    .roundedRectangleBorder(style: .yellow, cornerRadius: 10, lineWidth: 2)
             }
-            .padding(.horizontal)
 
             Divider()
 
             Section {
                 TextEditor(text: $text)
-                    .roundedRectangleBorder(style: .yellow, cornerRadius: 10, lineWidth: 2)
+                    .font(.title3)
+                    .roundedRectangleBorder(style: .gray, cornerRadius: 10, lineWidth: 1)
             }
             .padding(.horizontal)
 

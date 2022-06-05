@@ -16,6 +16,7 @@ struct TaskList: View {
                     pomidoroApp.deleteTask(at: indexSet, tasks: tasks, moc: moc)
                 })
                 .listRowSeparator(.hidden)
+
             }
         } else {
             Text("List of tasks is empty")
@@ -26,7 +27,7 @@ struct TaskList: View {
 
     init(pomidoroApp: PomidoroViewModel, showCompleteTask: Bool) {
         self.pomidoroApp = pomidoroApp
-        let predicate = showCompleteTask ? nil : NSPredicate(format: "isComplete == false")
+        let predicate = showCompleteTask ? NSPredicate(format: "isComplete == true") : NSPredicate(format: "isComplete == false")
         _tasks = FetchRequest<Task>(sortDescriptors: [SortDescriptor(\.isComplete)], predicate: predicate)
     }
 }

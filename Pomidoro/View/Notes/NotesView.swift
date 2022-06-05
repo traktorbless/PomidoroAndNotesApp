@@ -7,17 +7,19 @@ struct NotesView: View {
 
     var body: some View {
         NavigationView {
-            NoteList(notesApp: notesApp)
-                .listStyle(.plain)
-                .navigationTitle("Notes")
-                .toolbar {
-                    Button {
-                        notesApp.addNote(moc: moc)
-                    } label: {
-                        Image(systemName: "plus")
-                            .foregroundColor(.yellow)
+            VStack {
+                NoteList(notesApp: notesApp)
+                    .listStyle(.plain)
+                    .navigationTitle("Notes")
+                    .toolbar {
+                        Button {
+                            notesApp.addNote(moc: moc)
+                        } label: {
+                            Image(systemName: "plus")
+                                .foregroundColor(.yellow)
+                        }
                     }
-                }
+            }
         }
     }
 }

@@ -15,7 +15,6 @@ class NotesViewModel: ObservableObject {
 
             moc.delete(note)
         }
-
         try? moc.save()
     }
 
